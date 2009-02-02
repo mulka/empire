@@ -1,0 +1,9 @@
+{foreach from=$maps item=map}
+<p>
+<b>Name:</b> <a href="map-view.php?mapId={$map.mapId}">{$map.name}</a><br>
+<b>Default Locations:</b><br>
+{foreach from=$map.defaultLocations item=location}
+<a href="location-view.php?locId={$location.locId}">{$location.name|escape}</a><br>
+{/foreach}
+</p>
+{/foreach}

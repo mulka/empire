@@ -1,0 +1,19 @@
+Attaching <a href="http://gmapuploader.com">Gmap Uploader</a> map to <b>{$location.name}</b><br>
+
+<p>
+<ol>
+<li>Upload an image using the <a href="http://gmapuploader.com">Gmap Uploader</a>.
+<li>The section of the URL after the last slash consisting of ten random characters is the MapId. Copy and paste this into the box below. Example: http://gmapuploader.com/view/<b>tR4YPJrIIu</b>
+</ol>
+</p>
+<p>
+<form action="map-attach-handler.php" method="post">
+Old MapId: {$map.dir|escape} {if $map.location}(inherited from <b>{$map.location.name}</b>){/if}<br>
+New MapId: <input name="dir" value="{$newMapId|escape}"><br>
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="checkbox" name="copyBounds">Copy all location positions from previous custom map.
+<br>
+<br>
+<input type="submit" value="Attach Map">
+</form>
+</p>

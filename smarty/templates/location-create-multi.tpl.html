@@ -1,0 +1,19 @@
+{if $parent}
+Create new children of <b>{$parent.name}</b> called _________.
+{/if}
+<form action="location-create-handler.php" method="post">
+Names: <br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input name="names[]"><br>
+<input type="hidden" name="parentLocId" value="{$parent.locId}">
+<input type="submit">
+</form>
+

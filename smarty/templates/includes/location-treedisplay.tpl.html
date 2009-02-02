@@ -1,0 +1,5 @@
+{$indent}
+<a href="location-view.php?locId={$location.locId}">{$location.name}</a><br>
+{foreach from=$location.children item=child}
+{include file=includes/location-treedisplay.tpl.html location=$child indent="$indent--"}
+{/foreach}

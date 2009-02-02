@@ -1,0 +1,44 @@
+<script type="text/javascript">
+//<![CDATA[
+{if $bounds}	
+	var bounds = new GLatLngBounds(new GLatLng({$bounds.miny}, {$bounds.minx}), new GLatLng({$bounds.maxy}, {$bounds.maxx}));
+{else}
+	var bounds = false;
+{/if}
+{if $map.showBounds}
+	var showBounds = true;
+{else}
+	var showBounds = false;
+{/if}
+
+var map = new GMap2(document.getElementById("map"));
+
+//]]>
+</script>
+{include file="includes/map-custom-js.tpl.html" map=$mapInfo}
+<script type="text/javascript">
+//<![CDATA[
+
+map.addControl(new GLargeMapControl());
+map.enableDoubleClickZoom();
+map.enableContinuousZoom();
+if(showBounds){ldelim}
+map.addOverlay(boundsToPolyline(bounds));
+map.addOverlay(new GMarker(bounds.getCenter(), new GIcon(G_DEFAULT_ICON, "/images/marker.png")));
+{rdelim}
+GEvent.addListener(map, "moveend", function() {ldelim}
+updateLinks();
+{rdelim});
+GEvent.addListener(map, "zoomend", function() {ldelim}
+updateLinks();
+{rdelim});
+GEvent.addListener(map, "maptypechanged", function() {ldelim}
+updateLinks();
+{rdelim});
+{if $locations}
+	{foreach from=$locations item=point}
+		addLocation(new GLatLngBounds(new GLatLng({$point.miny}, {$point.minx}), new GLatLng({$point.maxy}, {$point.maxx})), '{$point.name|escape:'quotes'}', {$point.locId});
+	{/foreach}
+{/if}
+//]]>
+</script>

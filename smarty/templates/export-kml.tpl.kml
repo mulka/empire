@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<name>Cartiki Export</name>
+<Style id="style">
+<LineStyle>
+<color>ffff0000</color>
+<width>4</width>
+</LineStyle>
+</Style>
+{foreach from=$locations item=location}
+{if $location.bounds}
+<Placemark>
+<name>{$location.name} ({$location.locId})</name>
+<styleUrl>#style</styleUrl>
+<MultiGeometry>
+    <LinearRing>
+      <coordinates>
+{$location.bounds.minx},{$location.bounds.miny} 
+{$location.bounds.minx},{$location.bounds.maxy} 
+{$location.bounds.maxx},{$location.bounds.maxy} 
+{$location.bounds.maxx},{$location.bounds.miny} 
+{$location.bounds.minx},{$location.bounds.miny}
+      </coordinates>
+    </LinearRing>
+<Point>
+<coordinates>{$location.bounds.minx},{$location.bounds.maxy}</coordinates>
+</Point>
+</MultiGeometry>
+
+</Placemark>
+{/if}
+{/foreach}
+</Document>
+</kml>
+ 

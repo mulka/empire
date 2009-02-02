@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locations>
+{foreach from=$locations item=location}
+{if $location.center}
+<location>
+<locId>{$location.locId}</locId>
+<name>{$location.name}</name>
+<center>
+<x>{$location.center.x}</x>
+<y>{$location.center.y}</y>
+</center>
+</location>
+{/if}
+{/foreach}
+</locations>

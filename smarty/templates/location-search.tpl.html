@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+        <head>
+                <title>Cartiki</title>
+                <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8">
+	</head>
+<body>
+<div id="wrapperDiv">
+{include file="includes/header2.tpl.html"}
+
+<p>
+{if $locationList}
+<h3> Search Results for '{$query}': </h3>
+<p>
+{include file=location-list2.tpl.html}
+</p>
+{else}
+No results...<br>
+{/if}
+</p>
+
+<a href="location-create.php?name={$query|escape:'url'}">create a new location called: <b>{$query|escape}</b></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+Editing type for <a href="location-view.php?locId={$location.locId}">{$location.name|escape}</a>.
+<form method="post" action="types-edit-handler.php">
+<input type="hidden" name="next" value="types-list.php">
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="hidden" name="next" value="location-view.php?locId={$location.locId}">
+<select name="type">
+{foreach from=$possibleTypes item=possibleType}
+<option
+{if $possibleType == $location.type}
+selected="selected"
+{/if}
+>{$possibleType}</option>
+{/foreach}
+</select>
+<input type="submit" value="Change">
+</form>

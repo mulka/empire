@@ -1,0 +1,42 @@
+<table border="1">
+<tr>
+<th>Name</th>
+<th>External Key</th>
+<th></th>
+</tr>
+<tr>
+<form method="post" action="location-external-handler.php"  style="margin: 0px">
+<td>
+<input type="hidden" name="source" value="{$source}">
+{include file="includes/location-select.tpl.html" name="locId" emptyString="-- Select Location --"}
+</td>
+<td>
+<input name="key">
+</td>
+<td>
+<input type="submit" name="add" value="Add">
+</td>
+</form>
+</tr>
+{foreach from=$locations item=location}
+<tr>
+<td><a href="/loc/{$location.locId}">{$location.name|escape}</a></td>
+<td>
+{$location.externalKey|escape}
+<!--
+<input name="key_{$location.locId}" value="{$location.externalKey|escape:'url'}">
+-->
+</td>
+<td>
+<form method="post" action="location-external-handler.php"  style="margin: 0px">
+<input type="hidden" name="source" value="{$source}">
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="hidden" name="key" value="{$location.externalKey}">
+<input type="submit" name="delete"  value="Delete">
+</form>
+</td>
+</tr>
+{/foreach}
+</table>
+
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" 
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	>
+
+<channel>
+	<title>Cartiki Recent Changes</title>
+	<link>http://cartiki.com</link>
+	<description></description>
+	<pubDate>Tue, 05 Jun 2007 01:41:50 EST</pubDate>
+	<generator>http://cartiki.com</generator>
+	<language>en</language>
+
+{foreach from=$log item=row}
+		<item>
+		<title>{$row.action}: {$row.info.location.name}</title>
+{*		<link>http://</link> *}
+		<comments>http://blog.kylemulka.com/?p=420#comments</comments>
+		<pubDate>{$row.timestamp|date_format:"%a, %d %b %Y %T"} EST</pubDate>
+
+		<dc:creator>{$row.ip}</dc:creator>
+		
+		<guid isPermaLink="false">http://{$host}/log/{$row.logId}</guid>
+		<description><![CDATA[
+
+{if $row.action == "editmap"}
+Map Edited: <a href="http://{$host}/loc/{$row.info.location.locId}">{$row.info.location.name}</a><br>
+<a href="http://{$host}/map-diff.php?logId={$row.logId}">map diff</a>
+{elseif $row.action == "editparent"}
+{include file="parent-diff.tpl.html" log=$row.info}
+{elseif $row.action == "create"}
+{include file="location-create-diff.tpl.html" log=$row.info}
+{elseif $row.action == "duplicate"}
+<a href="http://{$host}/duplicate-diff.php?logId={$row.logId}">duplicate diff</a>
+{elseif $row.action == "addaka"}
+{include file="addaka-diff.tpl.html" log=$row.info}
+{elseif $row.action == "addexternal"}
+<a href="http://{$host}/addexternal-diff.php?logId={$row.logId}">addexternal diff</a>
+{else}
+<pre>
+{$row.data}
+</pre>
+{/if}
+]]></description>
+{*
+        <content:encoded><![CDATA[<p>The name pretty much says it all I think: wiki drawing tool. Basically, I want a website where I can go and draw something, then other people can come in later and edit it. Just like Wikipedia, all changes will be saved, and each drawing would be able to be instantly reverted to a previous version.
+</p>
+]]></content:encoded>
+*}
+</item>
+{/foreach}
+</channel>
+</rss>

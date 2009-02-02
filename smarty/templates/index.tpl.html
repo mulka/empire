@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">        
+<head>                
+<title>Cartiki</title> 
+<link rel="stylesheet" href="/css/style.css" type="text/css" charset="utf-8">
+</head>
+
+<body>
+<div id="wrapperDiv">
+{include file="includes/header2.tpl.html"}
+
+<p>
+Cartiki is a location database that anyone can edit. The name is a combination of cartography and wiki. 
+</p>
+<p>
+Anything that has a generally accepted name and is relatively stationary belongs in Cartiki. So, things like countries, cities, campuses, buildings, and rooms belong in Cartiki. Vehicles, furniture, and people do not.  
+</p>
+<p>
+It stores the following about each unique location:
+
+<ul>
+<li>names for the location
+<li>geographical bounds for the location
+<li>its place in the hiearchy of locations
+</ul>
+</p>
+
+<p>
+To add a location, find its parent location, make sure you are in edit mode, and click "add child".
+</p>
+
+{if $featured}
+<p>
+Featured locations:
+<ul>
+{foreach from=$featured item=loc}
+<li><a href="/loc/{$loc.locId}">{$loc.name|escape}</a>
+{/foreach}
+</ul>
+</p>
+{/if}
+
+{if $new}
+<p>
+New locations:
+<ul>
+{foreach from=$new item=loc}
+<li><a href="/loc/{$loc.locId}">{$loc.name|escape}</a>
+{/foreach}
+</ul>
+</p>
+{/if}
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+</a>
+<br />The data in Cartiki is licensed under a 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 License</a>.
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{if $externalLinks || $editMode}
+        <div id="linkSection" class="section">
+                <h3>External Links
+{if $editMode}
+<br>
+<span class="editlinks">
+<a href="/location-external.php?locId={$location.locId}">edit external keys</a>
+</span>
+{/if}
+</h3>
+                <ul>
+{foreach from=$externalLinks item=externalLink}
+<li><a href="{$externalLink.link}">{$externalLink.name}</a></li>
+{/foreach}
+                </ul>
+        </div>
+{/if}
+
+{if $externalUrls}
+        <div id="urlSection" class="section">
+                <h3>External Links</h3>
+                <ul>
+{foreach from=$externalUrls item=externalUrl}
+<li><a href="{$externalUrl}">{$externalUrl}</a></li>
+{/foreach}
+                </ul>
+        </div>
+{/if}

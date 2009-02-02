@@ -1,0 +1,5 @@
+{foreach from=$possibles item=location}
+<input type="checkbox" name="locIds[]" value="{$location.locId}">
+{$location.name|escape}
+<br>
+{/foreach}

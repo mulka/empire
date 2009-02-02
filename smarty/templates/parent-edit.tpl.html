@@ -1,0 +1,7 @@
+<b>{$location.name|escape}</b> lies within the bounds of _____________?<br>
+<form method="post" action="location-parent-set-handler.php">
+<input type="hidden" name="locId" value="{$location.locId}">
+{include file="includes/location-select.tpl.html" emptyString="-- None --" name="parentLocId"}
+<input type="submit" value="Set Parent Location">
+</form>
+Note: Locations which, if set as this location's parent, would cause a loop, are not included here. This includes the location itself, its children, its childrens' children, etc. 

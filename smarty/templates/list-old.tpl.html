@@ -1,0 +1,16 @@
+<table>
+<tr>
+<td valign="top">
+{foreach from=$locations item=location}
+{$location.name}<br>
+{/foreach}
+</td>
+<td>
+<iframe src="iframe.php?locIds=
+{foreach from=$locations item=location}
+{$location.locId},
+{/foreach}
+" height="512" width="512" \>
+</td>
+</tr>
+</table>

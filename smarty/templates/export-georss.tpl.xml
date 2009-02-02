@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:georss="http://www.georss.org/georss">
+<channel>
+<title>Cartiki Export</title>
+<description>GeoRSS containing locations from Cartiki.</description>
+<link>http://{$host}</link>
+{foreach from=$locations item=location}
+{if $location.bounds}
+<item>
+<title>{$location.name} ({$location.locId})</title>
+<link>http://{$host}/loc/{$location.locId}</link>
+<georss:polygon>
+{$location.bounds.miny} {$location.bounds.minx} {$location.bounds.miny} {$location.bounds.maxx} {$location.bounds.maxy} {$location.bounds.maxx} {$location.bounds.maxy} {$location.bounds.minx} {$location.bounds.miny} {$location.bounds.minx}
+</georss:polygon>
+</item>
+{/if}
+{/foreach}
+</channel>
+</rss> 

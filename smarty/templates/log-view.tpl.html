@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+        <head>
+                <title>Cartiki Recent Changes</title>
+                <link rel="stylesheet" href="/css/style.css" type="text/css" charset="utf-8">
+        </head>
+        <body>
+<div id="wrapperDiv">
+{include file="includes/header2.tpl.html"}
+
+
+<div id="mainContent">
+
+<h2>Recent Changes</h2>
+
+Filters: 
+{foreach from=$filters item=filter}
+{if $filter}
+{$filter},
+{/if}
+{/foreach}
+- <a href="recent.php">clear</a> - <a href="/recent.php?output=rss{if $filters.ip}&ip={$filters.ip}{/if}{if $filters.action}&action={$filters.action}{/if}">RSS</a><br> 
+
+<table border="1">
+<tr>
+<th>Time</th>
+<th>IP Address</th>
+<th>Type</th>
+<th>Details</th>
+</tr>
+{foreach from=$log item=row}
+<tr>
+<td>
+{$row.timestamp|date_format:"%b %e, %H:%M"}
+</td>
+<td>
+<a href="?ip={$row.ip}">{$row.ip}</a>
+</td>
+<td>
+<a href="?action={$row.action}">{$row.action}</a>
+</td>
+
+<td>
+{if $row.action == "editmap"}
+Map Edited: <a href="/loc/{$row.info.location.locId}">{$row.info.location.name}</a><br>
+<!--<a href="../map-diff.php?logId={$row.logId}">map diff</a>-->
+{elseif $row.action == "editparent"}
+{include file="parent-diff.tpl.html" log=$row.info}
+{*
+<br>
+<a href="../parent-diff.php?logId={$row.logId}">parent diff</a>
+*}
+{elseif $row.action == "create"}
+{include file="location-create-diff.tpl.html" log=$row.info}
+{*
+<a href="../location-create-diff.php?logId={$row.logId}">create diff</a>
+*}
+{elseif $row.action == "duplicate"}
+<a href="../duplicate-diff.php?logId={$row.logId}">duplicate diff</a>
+{elseif $row.action == "addaka"}
+{include file="addaka-diff.tpl.html" log=$row.info}
+{*
+<a href="../addaka-diff.php?logId={$row.logId}">addaka diff</a>
+*}
+{elseif $row.action == "addexternal"}
+<a href="../addexternal-diff.php?logId={$row.logId}">addexternal diff</a>
+{else}
+<pre>
+{$row.data}
+</pre>
+{/if}
+</td>
+
+</tr>
+{/foreach}
+</table>
+
+</div>
+</div>
+</body>
+</html>

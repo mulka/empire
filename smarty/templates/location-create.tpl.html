@@ -1,0 +1,18 @@
+{if $parent}
+Create new child of <b>{$parent.name}</b> called _________.
+{/if}
+<form action="location-create-handler.php" method="post">
+Name: <input name="name" value="{$name|escape}"><br>
+{if $parent}
+<input type="hidden" name="parentLocId" value="{$parent.locId}">
+{else}
+Parent: {include file="includes/location-select.tpl.html" emptyString="-- Select Parent Location --" name="parentLocId"}
+<br>
+{/if}
+<input type="submit" value="Create This Location">
+</form>
+
+{if $parent}
+<a href="location-create.php">Create location with different parent</a><br>
+<a href="location-create-multi.php?parentLocId={$parent.locId}">Create multiple children of <b>{$parent.name|escape}</b></a>
+{/if}

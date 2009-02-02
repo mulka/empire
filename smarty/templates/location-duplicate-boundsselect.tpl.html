@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<title>Cartiki</title>
+		<link href="/css/ie-vml.css" type="text/css" rel="stylesheet" media="all">
+		<!-- for map -->
+		<script src="http://maps.google.com/maps?file=api&amp;v=2.65&amp;key={$gmapsApiKey}" type="text/javascript"></script>
+		<script src="/js/func.boundsToPolyline.js" type="text/javascript"></script>
+	</head>
+	<body onunload="GUnload()">
+
+<table>
+<tr>
+<td>
+<h2>{$location.name}</h2>
+<form method="post" action="location-duplicate-handler.php">
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="hidden" name="dupLocId" value="{$dupLocation.locId}">
+<input type="hidden" name="boundsLocId" value="{$location.locId}">
+<input type="submit" value="Choose This Bounds">
+</form>
+</td>
+<td>
+<h2>{$dupLocation.name}</h2>
+<form method="post" action="location-duplicate-handler.php">
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="hidden" name="dupLocId" value="{$dupLocation.locId}">
+<input type="hidden" name="boundsLocId" value="{$dupLocation.locId}">
+<input type="submit" value="Choose This Bounds">
+</form>
+</td>
+</tr>
+<tr>
+<td>
+<div id="map" style="height: 400px; width: 400px;" />
+</td>
+<td>
+<div id="dupMap" style="height: 400px; width: 400px;" />
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+        //<![CDATA[
+
+        var map = new GMap2(document.getElementById("map"));
+        var bounds = new GLatLngBounds(new GLatLng({$bounds.miny}, {$bounds.minx}), new GLatLng({$bounds.maxy}, {$bounds.maxx}));
+        map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
+        map.setMapType(G_HYBRID_MAP);
+        map.addControl(new GSmallMapControl());
+        map.addControl(new GMapTypeControl());
+        map.addControl(new GOverviewMapControl());
+        map.addOverlay(boundsToPolyline(bounds));
+        map.addOverlay(new GMarker(bounds.getCenter(), new GIcon(G_DEFAULT_ICON, "/images/marker.png")));
+
+        var dupMap = new GMap2(document.getElementById("dupMap"));
+        var bounds = new GLatLngBounds(new GLatLng({$dupBounds.miny}, {$dupBounds.minx}), new GLatLng({$dupBounds.maxy}, {$dupBounds.maxx}));
+        dupMap.setCenter(bounds.getCenter(), dupMap.getBoundsZoomLevel(bounds));
+        dupMap.setMapType(G_HYBRID_MAP);
+        dupMap.addControl(new GSmallMapControl());
+        dupMap.addControl(new GMapTypeControl());
+        dupMap.addControl(new GOverviewMapControl());
+        dupMap.addOverlay(boundsToPolyline(bounds));
+        dupMap.addOverlay(new GMarker(bounds.getCenter(), new GIcon(G_DEFAULT_ICON, "/images/marker.png")));
+        //]]>
+
+</script>
+	</body>
+</html>

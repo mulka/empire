@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+                <title>Cartiki</title>
+		<link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8">
+                <link href="/css/ie-vml.css" type="text/css" rel="stylesheet" media="all">
+{include file="includes/map-header-js.tpl.html"}
+	</head>
+	<body>
+<div id="wrapperDiv">
+
+<div id="mainContent">
+
+<div id="mapColumn">
+	<div id="map"></div>	
+
+</div>
+
+<div id="leftColumn">
+	<div id="childrenSection" class="section">
+		<ul id="children">
+
+{if $locations}
+{foreach from=$locations item=child}
+<li>
+<a
+onmouseover="mymouseover({$child.locId});"
+onmouseout="mymouseout({$child.locId});"
+href="/loc/{$child.locId}">
+{$child.name|escape}
+</a>
+</li>
+{/foreach}
+{else}
+(no children)
+{/if}
+		</ul>
+	</div>
+	
+</div><!-- end of left column -->
+
+</div><!-- end main content -->
+
+
+</div><!-- end of wrapper -->
+
+<script type="text/javascript">
+	//<![CDATA[
+	{literal}
+	var map = new GMap2(document.getElementById("map"));
+        //var defaultMapBounds = new GLatLngBounds(new GLatLng({$mapBounds.miny}, {$mapBounds.minx}), new GLatLng({$mapBounds.maxy}, {$mapBounds.maxx}));
+        //map.setCenter(defaultMapBounds.getCenter(), map.getBoundsZoomLevel(defaultMapBounds), G_HYBRID_MAP);
+	var bounds = new GLatLngBounds(new GLatLng(41.574361305989, -90.3955078125), new GLatLng(47.53203824676, -82.2216796875));
+	map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
+	map.setMapType(G_HYBRID_MAP);
+	map.addControl(new GLargeMapControl());
+	map.addControl(new GMapTypeControl());
+	map.addControl(new GOverviewMapControl());
+{/literal}
+
+                        var mapBounds = false;
+                        {foreach name=locations from=$locations item=location}
+				{if $location.bounds}
+                                {if $smarty.foreach.locations.first}
+                                var mapBounds = new GLatLngBounds(new GLatLng({$location.bounds.miny}, {$location.bounds.minx}), new GLatLng({$location.bounds.maxy}, {$location.bounds.maxx}));
+                                {else}
+                                mapBounds.extend(new GLatLng({$location.bounds.miny}, {$location.bounds.minx}));
+                                mapBounds.extend(new GLatLng({$location.bounds.maxy}, {$location.bounds.maxx}));
+                                {/if}
+                                addLocation(new GLatLngBounds(new GLatLng({$location.bounds.miny}, {$location.bounds.minx}), new GLatLng({$location.bounds.maxy}, {$location.bounds.maxx})), '{$location.name|escape:'quotes'}', {$location.locId});
+				{/if}
+                        {/foreach}
+                        if(mapBounds)
+                                map.setCenter(mapBounds.getCenter(), map.getBoundsZoomLevel(mapBounds), G_HYBRID_MAP);
+                        if(map.getZoom() > 18) map.setZoom(18);
+
+		//]]>
+</script>	</body>
+
+</html>

@@ -1,0 +1,3 @@
+{foreach from=$log item=row}
+{$row.timestamp|date_format}, <a href="?ip={$row.ip}">{$row.ip}</a>: <b>{$row.query}</b><br>
+{/foreach}

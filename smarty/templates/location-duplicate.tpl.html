@@ -1,0 +1,6 @@
+<b>{$location.name}</b> is a duplicate of __________.<br>
+<form method="post" action="location-duplicate-handler.php">
+<input type="hidden" name="locId" value="{$location.locId}">
+{include file="includes/location-select.tpl.html" emptyString="-- Select Duplicate --" name="dupLocId"}
+<input type="submit" value="Mark As Duplicate">
+</form>

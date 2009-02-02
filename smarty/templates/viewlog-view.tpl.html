@@ -1,0 +1,49 @@
+<p>
+Filter By:<br>
+Referer:
+{foreach from=$possibleReferers item=possible}
+{if $referer != $possible}
+<a href="viewlog-view.php?ip={$ip}&referer={$possible}">{$possible}</a>, 
+{else}
+{$possible},
+{/if}
+{/foreach}
+<br>
+{if $ip}
+Hostname: {$hostname}, <a href="viewlog-view.php?referer={$referer}">all</a>
+{/if}
+</p>
+
+<table>
+<tr>
+<th>
+Date
+</th>
+<th>
+IP
+</th>
+<th>
+Location
+</th>
+<th>
+Referer
+</th>
+</tr>
+
+{foreach from=$log item=row}
+<tr>
+<td nowrap>
+{$row.timestamp|date_format}
+</td>
+<td>
+<a href="?ip={$row.ip}&referer={$referer}">{$row.ip}</a>
+</td>
+<td>
+<a href="../location-view.php?locId={$row.locId}">{$row.name}</a>
+</td>
+<td>
+<a href="http://ultimod.org/?url={$row.referer|escape:'url'}">{$row.refererShort}</a>
+</td>
+</tr>
+{/foreach}
+</table>

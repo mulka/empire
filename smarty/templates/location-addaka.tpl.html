@@ -1,0 +1,26 @@
+Use _______ as an alternate name for <b>{$location.name}</b><br>
+<form action="location-addaka-handler.php" method="post">
+Alternate Name: <input name="name">
+<input type="checkbox" name="default"> Make default<br>
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="submit" value="Add Alternate Name">
+</form>
+
+{if $aka}
+<p>
+<form method="post" action="location-edit-handler.php">
+<input type="hidden" name="locId" value="{$location.locId}">
+{foreach from=$aka item=akaName}
+<input type="radio" name="name" value="{$akaName}">
+{if $akaName == $location.name}
+<b>{$akaName}</b>
+{else}
+{$akaName}
+{/if}
+</input><br>
+{/foreach}
+<br>
+<input type="submit" value="Change Default Name">
+</form>
+</p>
+{/if}

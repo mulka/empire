@@ -1,0 +1,18 @@
+{include file="includes/header.tpl.html"}
+
+<p>
+{if $locationList}
+{foreach from=$locationList item=location}
+{include file=includes/location-treedisplay.tpl.html}
+{/foreach}
+{else}
+No results...<br>
+{/if}
+</p>
+
+<p>
+Alternate name matches:<br>
+{include file=location-list.tpl.html locations=$akaList}
+</p>
+
+<!--<a href="location-create.php?name={$query|escape:'url'}">create a new location called: <b>{$query|escape}</b></a>-->

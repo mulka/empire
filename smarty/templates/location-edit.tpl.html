@@ -1,0 +1,6 @@
+<form action="location-edit-handler.php" method="post">
+<input type="hidden" name="locId" value="{$location.locId}">
+Old Name: {$location.name|escape}<br>
+New Name: <input name="name" value="{$location.name|escape}"><br>
+<input type="submit" value="Change Name">
+</form>

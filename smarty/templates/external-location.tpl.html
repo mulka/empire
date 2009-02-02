@@ -1,0 +1,50 @@
+<p>
+<b>Locations in Cartiki for {$source.name} Key: <a href="{$external.link}">{$key|escape}</a></b>
+<ul>
+{foreach from=$externalLocationList item=externalLocations}
+<li>
+{foreach name=externalLocations from=$externalLocations item=location}
+<a target="_top" href="/loc/{$location.locId}">{$location.name}</a>
+{*
+<a href="location-external.php?source={$source.source}&locId={$location.locId}">{$location.name}</a>
+*}
+{/foreach}
+{*
+<form method="post" action="location-external-handler.php" style="margin: 0px; ">
+<input type="hidden" name="source" value="{$source.source}">
+<input type="hidden" name="key" value="{$key}">
+<input type="hidden" name="locId" value="{$externalLocations.0.locId}">
+<input type="submit" name="delete" value="Delete">
+</form>
+*}
+</li>
+
+{/foreach}
+</ul>
+</p>
+
+{if $suggestions}
+Suggested:
+<form method="post" action="location-external-handler.php" style="margin: 0px;">
+<input type="hidden" name="source" value="{$source.source}">
+<input type="hidden" name="key" value="{$key}">
+{include file="includes/location-select.tpl.html" possibleList=$suggestions name="locId"}
+<input type="submit" name="add" value="Add">
+</form>
+{/if}
+{if $possibleList}
+{if $external.location.name}
+All of {$external.location.name}:
+{else}
+All:
+{/if}
+<form method="post" action="location-external-handler.php" style="margin: 0px;">
+<input type="hidden" name="source" value="{$source.source}">
+<input type="hidden" name="key" value="{$key}">
+{include file="includes/location-select.tpl.html" emptyString="-- Select Location --" name="locId"}
+<input type="submit" name="add" value="Add">
+</form>
+{/if}
+<a target="_top" href="location-create.php?name={$name|escape:'url'}&parentLocId={$external.locId}">Add <b>{$name}</b> to Cartiki</a>
+
+

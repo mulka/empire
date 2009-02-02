@@ -1,0 +1,15 @@
+<select name="{$name}">
+{if $emptyString}
+<option value="">{$emptyString}</option>
+{/if}
+{foreach from=$possibleList item=locations}
+<option value="{$locations.0.locId}"
+{if $locations.0.locId == $current.locId}
+selected="selected"
+{/if}
+>
+{include file="includes/location-uniquedisplay.tpl.html"}
+</option>
+{/foreach}
+</select>
+

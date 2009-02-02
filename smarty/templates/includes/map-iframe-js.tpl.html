@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	//<![CDATA[
+                    var map = new GMap2(document.getElementById("map"));
+                        map.addControl(new GSmallMapControl());
+                        map.addControl(new GMapTypeControl());
+			var omap = new GOverviewMapControl();
+			map.addControl(omap);
+			omap.hide();
+                        var defaultMapBounds = new GLatLngBounds(new GLatLng({$mapBounds.miny}, {$mapBounds.minx}), new GLatLng({$mapBounds.maxy}, {$mapBounds.maxx}));
+                        map.setCenter(defaultMapBounds.getCenter(), map.getBoundsZoomLevel(defaultMapBounds), G_HYBRID_MAP);
+                        var mapBounds = false;
+                        {foreach name=locations from=$locations item=location}
+                                {if $smarty.foreach.locations.first}
+                                var mapBounds = new GLatLngBounds(new GLatLng({$location.bounds.miny}, {$location.bounds.minx}), new GLatLng({$location.bounds.maxy}, {$location.bounds.maxx}));
+                                {else}
+                                mapBounds.extend(new GLatLng({$location.bounds.miny}, {$location.bounds.minx}));
+                                mapBounds.extend(new GLatLng({$location.bounds.maxy}, {$location.bounds.maxx}));
+                                {/if}
+                                addLocation(new GLatLngBounds(new GLatLng({$location.bounds.miny}, {$location.bounds.minx}), new GLatLng({$location.bounds.maxy}, {$location.bounds.maxx})), '{$location.name|escape:'quotes'}', {$location.locId});
+                        {/foreach}
+                        if(mapBounds)
+                                map.setCenter(mapBounds.getCenter(), map.getBoundsZoomLevel(mapBounds), G_HYBRID_MAP);
+			if(map.getZoom() > 18) map.setZoom(18);
+			map.setZoom(map.getZoom() - 2);
+	//]]>
+</script>

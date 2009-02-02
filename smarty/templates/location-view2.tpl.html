@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+                <title>Cartiki - {$location.name}</title>
+		<link rel="stylesheet" href="/css/style.css" type="text/css" charset="utf-8">
+                <link href="/css/ie-vml.css" type="text/css" rel="stylesheet" media="all">
+{include file="includes/map-header-js.tpl.html"}
+<script type="text/javascript">
+{literal}
+function getQueryString(){
+var center = map.getCenter();
+var x = center.lng();
+var y = center.lat();
+var z = map.getZoom();
+var mapTypeObj = map.getCurrentMapType();
+var mapType;
+switch(mapTypeObj){
+case G_NORMAL_MAP:
+mapType = 'map';
+break;
+case G_SATELLITE_MAP:
+mapType = 'satellite';
+break;
+case G_HYBRID_MAP:
+mapType = 'hybrid';
+break;
+}
+{/literal}
+return "locId={$location.locId}&map={$smarty.get.map}&x=" + x + "&y=" + y + "&z=" + z + "&mapType=" + mapType;
+}
+{literal}
+function updateLinks(){
+var element = document.getElementById("editMapLink");
+if(element){
+	element.href = "/map-edit.php?" + getQueryString();
+}
+}
+{/literal}
+</script>
+	</head>
+	<body>
+<div id="wrapperDiv">
+{include file="includes/header2.tpl.html"}
+
+{if $location}
+		<div id="actionLinks">
+<form action="/mode-set.php" method="post">
+<input type="hidden" name="locId" value="{$location.locId}">
+{if $editMode}
+<input type="submit" name="edit" value="view mode">
+{else}
+<input type="submit" name="edit" value="edit mode">
+{/if}
+</form>
+		</div>
+
+<div id="mainContent">
+	<div id="pageHeader">
+		<h2 id="pageTitle">{$location.name}</h2>
+		<div id="breadcrumbs">
+{if $breadcrumbs}
+{foreach name=parents from=$breadcrumbs key=key item=breadcrumb}
+			<a href="/loc/{$breadcrumb.locId}">{$breadcrumb.name}</a>
+				<span class="connector"> > </span>
+{/foreach}
+			{$location.name}
+{if $editMode}
+- <a href="/parent-edit.php?locId={$location.locId}">change parent</a> 
+{/if}
+{else}
+{if $editMode}
+<a href="/parent-edit.php?locId={$location.locId}">attach parent</a>
+{/if}
+{/if}
+		</div>
+	</div>
+
+<div id="mapColumn">
+<div id="mapHeader">
+<span style="float: right;">
+{if $editMode}
+<a href="/map-attach.php?locId={$location.locId}">attach map</a>,
+{/if}
+{if $map.info}
+<a href="/location-view.php?locId={$location.locId}&map=gps">google map</a>
+{elseif $hasCustomMap}
+<a href="/location-view.php?locId={$location.locId}&map=custom">custom map</a>
+{/if}
+</span>
+{if $editMode}
+<a href="/map-edit.php?locId={$location.locId}&map={$smarty.get.map}" id="editMapLink">edit map</a>
+{/if}
+&nbsp;
+</div>
+	<div id="map"></div>	
+</div>
+
+<div id="leftColumn">
+	<div id="childrenSection" class="section">
+		<h3>Within this location...
+{if $editMode}
+<br>
+<span class="editlinks">
+<a href="/children-edit.php?locId={$location.locId}">attach child</a>,
+<a href="/location-create.php?parentLocId={$location.locId}">create child</a>
+</span>
+{/if}
+</h3>
+		<ul id="children">
+{if $children}
+{foreach from=$children item=child}
+<li>
+<a 
+onmouseover="mymouseover({$child.locId});" 
+onmouseout="mymouseout({$child.locId});"
+href="/loc/{$child.locId}">
+{$child.name|escape}
+</a>
+</li>
+{/foreach}
+{else}
+(no children)
+{/if}
+		</ul>
+	</div>
+
+{if $location.type || $editMode}
+	<div id="typeSection" class="section">
+		<h3>Type
+{if $editMode}
+<br>
+<span class="editlinks">
+<a href="/types-edit.php?locId={$location.locId}">edit type</a>
+</span>
+{/if}
+</h3>
+	{$location.type}
+	</div>
+{/if}
+	<div id="akaSection" class="section">
+		<h3>Also Known As
+{if $editMode}
+<br>
+<span class="editlinks">
+<a href="/location-addaka.php?locId={$location.locId}">edit names</a>
+</span>
+{/if}
+</h3>
+		<ul>
+{foreach from=$aka item=akaName}
+<li>
+{if $akaName == $location.name}
+<b>{$akaName}</b>
+{else}
+{$akaName}
+{/if}
+</li>
+{/foreach}
+		</ul>
+	</div>
+
+{include file="includes/location-external-display2.tpl.html"}
+	
+</div><!-- end of left column -->
+
+</div><!-- end main content -->
+
+{if $editMode}
+<p>
+<b>Other Actions</b>
+<ul>
+<li><a href="/location-edit.php?locId={$location.locId}">rename this location</a>
+<li><a href="/location-duplicate.php?locId={$location.locId}">mark as duplicate</a>
+</ul>
+</p>
+{/if}
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" />
+</a>
+<br />The data in Cartiki is licensed under a 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 License</a>.
+
+{else}
+<p>Sorry, that locId doesn't exist</p>
+{/if}
+
+</div><!-- end of wrapper -->
+
+{include file='includes/location-view-map-js.tpl.html' mapInfo=$map.info bounds=$map.bounds locations=$map.locations}
+	</body>
+</html>

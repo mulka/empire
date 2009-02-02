@@ -1,0 +1,20 @@
+<script type="text/javascript">
+//<![CDATA[
+
+map.getBoundsZoomLevel = function (bounds){ldelim}
+        var zoom = GMap2.prototype.getBoundsZoomLevel.call(this, bounds);
+        if(zoom > {$map.levels} - 1){ldelim}
+                zoom = {$map.levels} - 1;
+        {rdelim}
+        return zoom;
+{rdelim};
+
+	var mapType = new GmapUploaderMapType(map, "{$map.base}/{$map.dir}", "{$map.format}", {$map.levels});
+
+	if(bounds){ldelim}
+        	map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds), mapType);
+	{rdelim}else{ldelim}
+        	map.setCenter(new GLatLng(0,0), 1, mapType);
+	{rdelim}
+//]]>
+</script>

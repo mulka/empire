@@ -1,0 +1,24 @@
+{if $externalLinks || $editMode}
+<p>
+<b>External Links</b>
+{if $editMode}
+ - <a href="location-external.php?locId={$location.locId}">edit external keys</a>
+{/if}
+<ul>
+{foreach from=$externalLinks item=externalLink}
+<li><a href="{$externalLink.link}">{$externalLink.name}</a></li>
+{/foreach}
+</ul>
+</p>
+{/if}
+
+{if $externalUrls}
+<p>
+<b>External URLs</b>
+<ul>
+{foreach from=$externalUrls item=externalUrl}
+<li><a href="{$externalUrl}">{$externalUrl}</a></li>
+{/foreach}
+</ul>
+</p>
+{/if}

@@ -1,0 +1,35 @@
+<script type="text/javascript">
+	//<![CDATA[
+	
+	var map = new GMap2(document.getElementById("map"));
+{if $bounds}
+	var bounds = new GLatLngBounds(new GLatLng({$bounds.miny}, {$bounds.minx}), new GLatLng({$bounds.maxy}, {$bounds.maxx}));
+{else}
+	var bounds = false;
+{/if}
+	map.setCenter(bounds.getCenter(), map.getBoundsZoomLevel(bounds));
+	map.setMapType(G_HYBRID_MAP);
+	map.addControl(new GLargeMapControl());
+	map.addControl(new GMapTypeControl());
+	map.addControl(new GOverviewMapControl());
+{if $map.showBounds}
+	if(!bounds){ldelim}
+		//calculate bounds from all locations
+	{rdelim}
+	map.addOverlay(createPdMarker(bounds.getCenter(), '{$bounds.name|escape:'javascript'}', {$location.locId}, "/images/marker.png"));
+	map.addOverlay(new GPolyline(boundsToPoints(bounds), '#33FF99'));
+{/if}
+GEvent.addListener(map, "moveend", function() {ldelim}
+updateLinks();
+{rdelim});
+GEvent.addListener(map, "zoomend", function() {ldelim}
+updateLinks();
+{rdelim});
+GEvent.addListener(map, "maptypechanged", function() {ldelim}
+updateLinks();
+{rdelim});
+	{foreach from=$locations item=point}
+		addLocation(new GLatLngBounds(new GLatLng({$point.miny}, {$point.minx}), new GLatLng({$point.maxy}, {$point.maxx})), '{$point.name|escape:'quotes'}', {$point.locId});
+	{/foreach}
+	//]]>
+</script>

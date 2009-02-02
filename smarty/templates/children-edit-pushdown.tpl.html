@@ -1,0 +1,8 @@
+____________ lies within the bounds of <b>{$location.name|escape}</b>.
+<form method="post" action="location-parent-set-handler.php">
+<input type="hidden" name="next" value="/loc/{$location.locId}">
+<input type="hidden" name="parentLocId" value="{$location.locId}">
+{include file="includes/location-multiselect.tpl.html"}
+<input type="submit" value="Attach Children">
+</form>
+

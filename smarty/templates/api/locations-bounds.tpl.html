@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locations>
+{foreach from=$locations item=location}
+{if $location.bounds}
+<location>
+<locId>{$location.locId}</locId>
+<name>{$location.name}</name>
+<bounds>
+<minx>{$location.bounds.minx}</minx>
+<miny>{$location.bounds.miny}</miny>
+<maxx>{$location.bounds.maxx}</maxx>
+<maxy>{$location.bounds.maxy}</maxy>
+</bounds>
+</location>
+{/if}
+{/foreach}
+</locations>

@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /children-edit.php
+Disallow: /location-addaka.php
+Disallow: /location-create-multi.php
+Disallow: /location-create.php
+Disallow: /location-duplicate.php
+Disallow: /location-edit.php
+Disallow: /location-external.php
+Disallow: /parent-edit.php
+Disallow: /types-edit.php
+Disallow: /map-attach.php
+

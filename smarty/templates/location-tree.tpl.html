@@ -1,0 +1,4 @@
+{foreach from=$locations item=locationList}
+{foreach from=$locationList item=location}<a href="location-view.php?locId={$location.locId}">{$location.name|escape}</a>/{/foreach}
+<br>
+{/foreach}

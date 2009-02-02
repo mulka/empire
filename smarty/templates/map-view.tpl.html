@@ -1,0 +1,11 @@
+mapId: {$map.mapId}<br>
+name: {$map.name|escape}<br>
+url: {$map.url}<br>
+format: {$map.format}<br>
+levels: {$map.levels}<br>
+width: {$map.width}<br>
+height: {$map.height}<br>
+<b>Default Locations:</b><br>
+{foreach from=$defaultLocations item=location}
+<a href="map.php?locId={$location.locId}">{$location.name|escape}</a><br>
+{/foreach}

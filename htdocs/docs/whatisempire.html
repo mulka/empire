@@ -1,0 +1,14 @@
+<h1>What is Empire?</h1>
+Empire is a system designed to store locations. Specifically, it stores the names of locations in a tree structure. A location is any simple name you would tell someone when they as you "Where are you?". For example, I may be at Mujo, in The Duderstadt Center, on North Campus, or at The University of Michigan. Notice, the different levels of accuracy. This is where the tree structure comes from. Also, notice the different connectors I use depending on the location. This will come into the picture later.
+
+<h2>Alternate Names</h2>
+Locations can have multiple names, but it always has one primary name. 
+Only the primary location names are stored in the tree structure. The alternate names hang off a primary name. 
+
+<h2>locIds</h2>
+Each location name in Empire has an ID usually called locId. This is used to reference a unique location in the Empire system. Two locations may have the same name, but they will always have different locIds.
+
+<h2>Connectors</h2>
+Each location can have a connector which is used to prefix the location when used in an english sentence. For example, I could be <b>in</b> The UGLi, <b>at</b> Expresso Royale, or <b>on</b> Central Campus. This connector is also useful for child locations. For example, all children of The UGLi are <b>in</b> The UGLi because The UGLi is a building. This is a little fuzzy, because it might also be ok to say you are <b>at</b> The UGLi.
+
+

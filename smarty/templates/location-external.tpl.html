@@ -1,0 +1,27 @@
+<p>
+<b>{$source.name} Keys for Cartiki's Location: <a href="location-view.php?locId={$location.locId}">{$location.name|escape}</a></b>
+<ul>
+{foreach from=$externalKeyList item=externalKeys}
+{foreach from=$externalKeys item=externalKey}
+<li><a href="location-external.php?source={$source.source}&key={$externalKey}">{$externalKey}</a>
+<form method="post" action="location-external-handler.php"  style="margin: 0px">
+<input type="hidden" name="source" value="{$source.source}">
+<input type="hidden" name="locId" value="{$location.locId}">
+<input type="hidden" name="key" value="{$externalKey}">
+<input type="submit" name="delete"  value="Delete">
+</form>
+</li>
+
+{/foreach}
+{/foreach}
+<li>
+<form method="post" action="location-external-handler.php"  style="margin: 0px">
+<input type="hidden" name="source" value="{$source.source}">
+<input type="hidden" name="locId" value="{$location.locId}">
+<input name="key">
+<input type="submit" name="add" value="Add">
+</form>
+</li>
+</ul>
+</p>
+

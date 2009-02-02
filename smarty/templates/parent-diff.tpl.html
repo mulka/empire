@@ -1,0 +1,5 @@
+Location: <a href="http://{$host}/loc/{$log.location.locId}">{$log.location.name}</a><br>
+{if $log.before}
+Parent Before: <a href="http://{$host}/loc/{$log.before.locId}">{$log.before.name}</a><br>
+{/if}
+Parent After: <a href="http://{$host}/loc/{$log.after.locId}">{$log.after.name}</a><br>

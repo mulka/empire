@@ -1,0 +1,11 @@
+____________ lies within the bounds of <b>{$location.name|escape}</b>.
+<form method="post" action="location-parent-set-handler.php">
+<input type="hidden" name="next" value="/loc/{$location.locId}">
+<input type="hidden" name="parentLocId" value="{$location.locId}">
+{include file="includes/location-select.tpl.html" name="locId" emptyString="-- Select Child --"}
+<input type="submit" value="Attach This Child">
+</form>
+<a href="location-create.php?parentLocId={$location.locId}">Create new child</a><br>
+<a href="location-create-multi.php?parentLocId={$location.locId}">Create multiple children</a><br>
+<a href="children-edit-pushdown.php?locId={$location.locId}">Move locations from parent</a><br>
+

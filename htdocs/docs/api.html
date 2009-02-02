@@ -1,0 +1,23 @@
+<h1>Empire API Documentation</h1>
+
+The Empire API attempts to use the REST style of doing things. Methods that don't change the state of the system use GET. Methods that do use POST.
+
+URL for API: <a href="http://cartiki.com/api/">http://cartiki.com/api/</a>
+
+<h2>Methods</h2>
+
+<h3>createLocation</h3>
+This function only accepts its parameters via POST because it is changing state on the server. Only the name parameter is required.<br>
+Parameters: name, connector, parentLocId
+<h3>getLocationsByIds</h3>
+Returns an XML document describing as many locIds as you can fit in the URL. LocIds should be separated with a comma.<br>
+Parameters: locIds
+<h3>getLocationsByName</h3>
+Returns an XML document describing locations whose name contains the name parameter string.<br>
+Parameters: name
+<h3>getLocationsByGps</h3>
+Returns an XML document describing locations ordered by area which contain the given x/y (long/lat) coordinate.<br>
+Parameters: x, y
+<h3>getLocationBoundsOnMap</h3>
+Returns an XML document with name and geographical bounds of the given locIds. LocIds should be separated with a comma.<br>
+Parameters: locIds

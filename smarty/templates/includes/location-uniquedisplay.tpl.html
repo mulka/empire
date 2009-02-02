@@ -1,0 +1,6 @@
+{foreach name=locations from=$locations item=possible}
+{if !$smarty.foreach.locations.first}
+>
+{/if}
+{$possible.name|escape}
+{/foreach}

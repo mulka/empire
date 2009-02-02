@@ -1,0 +1,10 @@
+php_value include_path '.:..:/usr/local/lib/php:/usr/local/apache/htdocs/PEAR'
+php_flag magic_quotes_gpc off
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ root.php?q=$1 [L,QSA]
+</IfModule>

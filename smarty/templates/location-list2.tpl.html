@@ -1,0 +1,10 @@
+{foreach from=$locationList item=locations}
+{foreach name=locations from=$locations item=location}
+{if $smarty.foreach.locations.first}
+<a href="location-view.php?locId={$location.locId}">{$location.name|escape}</a>
+{else}
+> {$location.name|escape}
+{/if}
+{/foreach}
+<br>
+{/foreach}

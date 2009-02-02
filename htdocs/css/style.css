@@ -1,0 +1,175 @@
+
+/* --------------- */
+/*	    tags
+/* --------------- */
+
+body {
+	font-family: helvetica, sans-serif;
+	font-size:100%;
+}
+
+a {
+	color: blue;
+	text-decoration:none;
+}
+
+a:hover {
+	background-color: #def;
+}
+
+h3 {
+	margin-top:0;
+}
+
+.editlinks {
+	font-size: .9em; 
+	font-weight: normal;
+}
+
+/* --------------- */
+/*	purely positioning
+/* --------------- */
+
+#wrapperDiv {
+	width:750px;
+	margin: 0 auto;
+}
+
+
+
+#mainContent {
+	margin-bottom: 4em;
+}
+
+
+/* --------------- */
+/*	   banner
+/* --------------- */
+
+#banner form {
+	float:right;
+}
+
+#logo {
+	border: 0px;
+	width: 150px;
+}
+
+/* --------------- */
+/*	   navbar
+/* --------------- */
+
+#navbar {
+	background-color: #abe;
+	padding:2px 0 1px;
+	border-bottom:2px solid #555;
+}
+
+#navbar ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+
+#navbar li {
+	display:inline;
+	margin:0px;
+	padding:0;
+}
+
+#navbar li a {
+	margin:0;
+	padding: 2px 5px 1px 8px;
+	color: navy;
+}
+
+#navbar a:hover {
+	background-color: #afa;
+	color: black;
+}
+
+
+
+
+/* --------------- */
+/*	 page header
+/* --------------- */
+
+
+#pageHeader {
+	margin:2em 0;
+}
+
+#pageTitle {
+	margin:0;
+}
+
+#actionLinks {
+	float:right;
+}
+
+
+#breadcrumbs {
+	font-size: .9em;
+}
+
+/* --------------- */
+/*	 map column
+/* --------------- */
+
+
+#mapColumn {
+	float:right;
+	width: 68%;
+}
+
+
+#map {
+	border:1px solid black;
+	width: 100%;
+	height: 512px;
+}
+
+
+/* --------------- */
+/*	 left column
+/* --------------- */
+
+
+#leftColumn {
+	width: 28%;
+	word-wrap:break-word;
+}
+
+#leftColumn .section {
+	margin: 1em 0;
+}
+
+#leftColumn h3 {
+	font-size:1em;
+	margin:0;
+	border-bottom: 1px solid #888;
+}
+
+#leftColumn ul{
+	list-style:none;
+	padding-left:0;
+	margin:.5em 0;
+}
+
+#leftColumn li {}
+
+#leftColumn ul a {
+	display:block;
+	padding-left: 7px;
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+	<link rel="stylesheet" href="/css/style.css" type="text/css" charset="utf-8">
+	<link href="/css/ie-vml.css" type="text/css" rel="stylesheet" media="all">
+    <title>Edit Location Bounds</title>
+{include file="includes/map-header-js.tpl.html"}    
+<script type="text/javascript">
+    //<![CDATA[
+
+    var mapBounds = new GLatLngBounds(new GLatLng({$mapBounds.miny}, {$mapBounds.minx}), new GLatLng({$mapBounds.maxy}, {$mapBounds.maxx}));
+
+{if $mapSetting}
+var center = new GLatLng({$mapSetting.y}, {$mapSetting.x});
+var zoom = {$mapSetting.z};
+var mapType = {$mapSetting.mapType};
+{else}
+var center = false;
+var zoom = false;
+var mapType = false;
+{/if}    
+
+    {if $locBounds}
+    var bounds = new GLatLngBounds(new GLatLng({$locBounds.miny}, {$locBounds.minx}), new GLatLng({$locBounds.maxy}, {$locBounds.maxx}));
+    {else}
+    var bounds = false;
+    {/if}
+    
+    //]]>
+    </script>
+    
+  </head>
+
+  <body onunload="GUnload()">
+<div id="wrapperDiv">
+{include file="includes/header2.tpl.html"}
+    <p>Editing the geographical bounds of <b>{$location.name|escape}</b>...</p>
+  
+    Click on map to set corner of location.<br />
+    Drag red marker that appears to opposite corner.<br />
+    Drag markers until satisfied.<br />
+    Click save.<br />
+<!--{if $parentShowing}Showing bounds of {$mapBounds.name|escape}...<br />{/if}-->
+    
+    <form name="form" action="map-edit-handler.php" method="post">
+        <input name="submit" type="submit" value="Save">
+    <!--<input type="button" onclick="clearBounds();" value="Clear Bounds">-->
+    <input type="button" onclick="resetBounds();" value="Reset">
+    <a href="location-view.php?locId={$location.locId}">Cancel</a>
+<br /><br />
+    <div id="map" style="height: 512px"></div>
+    
+    <input type="hidden" name="locId" value="{$location.locId}">
+    <input type="hidden" name="mapId" value="{$map.info.mapId}">
+    <input type="hidden" name="marker1y" id="marker1y">
+    <input type="hidden" name="marker1x" id="marker1x">
+    <input type="hidden" name="marker2y" id="marker2y">
+    <input type="hidden" name="marker2x" id="marker2x">
+
+    </form>
+</div>
+{include file='includes/map-edit-js.tpl.html' mapInfo=$map.info bounds=$map.bounds}
+    </body>
+</html>

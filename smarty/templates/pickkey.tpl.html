@@ -1,0 +1,16 @@
+{foreach from=$keys item=key}
+{if $key.after}
+{$key.before} => {$key.after}
+{foreach from=$key.locIds item=locId}
+<a href="location-view.php?locId={$locId}">{$locId}</a>,
+{/foreach}
+<br>
+
+{/if}
+{/foreach}
+<hr>
+{foreach from=$keys item=key}
+{if !$key.after}
+{$key.before}<br>
+{/if}
+{/foreach}

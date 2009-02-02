@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<title>Cartiki</title>
+		<link href="/css/ie-vml.css" type="text/css" rel="stylesheet" media="all">
+		<script src="/js/location-view.js" type="text/javascript"></script>
+{include file="includes/map-header-js.tpl.html"}
+	</head>
+	<body onunload="GUnload()">
+{* {include file="includes/header.tpl.html"} *}
+
+{if $location}
+
+
+<h2>{$location.name}<!-- - <a href="location-edit.php?locId={$location.locId}">edit name</a>--></h2>
+{/if}
+
+<table>
+<tr style="height: 512px;">
+<td valign="top" style="height: 512px;">
+<div style="height: 100%; overflow: auto;">
+{if $children}
+{foreach from=$children item=child}
+{*
+onmouseover="map.getMarkerById({$child.locId}).showTooltip();" 
+onmouseout="map.getMarkerById({$child.locId}).hideTooltip();"
+*}
+<a 
+onmouseover="mymouseover({$child.locId});" 
+onmouseout="mymouseout({$child.locId});"
+href="/location-view.php?locId={$child.locId}">
+{$child.name|escape}
+</a><br />
+{/foreach}
+{else}
+(no locations)
+{/if}
+</div>
+</td>
+<td valign="top" style="height: 512px;">
+{if !$map}
+Map hidden. (<a href="/location-view.php?locId={$location.locId}">show</a>)
+{elseif $map.type == 'parent'}
+Map not found, showing {$map.bounds.name}.
+{elseif !$map.info && !$map.bounds}
+No map available.
+{/if}
+<div id="map" style="height: 512px; width: 512px;" />
+</td>
+</tr>
+</table>
+
+{include file='includes/location-view-map-js.tpl.html' mapInfo=$map.info bounds=$map.bounds locations=$map.locations}
+
+	</body>
+</html>

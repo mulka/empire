@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<title>Cartiki - {$location.name}</title>
+		<link href="css/ie-vml.css" type="text/css" rel="stylesheet" media="all">
+{include file="includes/map-header-js.tpl.html"}
+<script type="text/javascript">
+function getQueryString(){ldelim}
+var center = map.getCenter();
+var x = center.lng();
+var y = center.lat();
+var z = map.getZoom();
+var mapTypeObj = map.getCurrentMapType();
+var mapType;
+switch(mapTypeObj){ldelim}
+case G_NORMAL_MAP:
+mapType = 'map';
+break;
+case G_SATELLITE_MAP:
+mapType = 'satellite';
+break;
+case G_HYBRID_MAP:
+mapType = 'hybrid';
+break;
+{rdelim}
+return "locId={$location.locId}&map={$smarty.get.map}&x=" + x + "&y=" + y + "&z=" + z + "&mapType=" + mapType;
+{rdelim}
+function updateLinks(){ldelim}
+document.getElementById("editMapLink").href = "map-edit.php?" + getQueryString();
+{rdelim}
+</script>
+	</head>
+	<body onunload="GUnload()">
+{include file="includes/header.tpl.html"}
+
+{if $location}
+switch to:
+{if $editMode}
+<a href="/loc/{$location.locId}?edit=0">view mode</a>
+{else}
+<a href="/loc/{$location.locId}?edit=1">edit mode</a>
+{/if}
+
+<p>
+<!-- <b>Parents</b><br /> -->
+{if $breadcrumbs}
+{foreach name=parents from=$breadcrumbs key=key item=breadcrumb}
+{$breadcrumb.indent}
+<a href="/loc/{$breadcrumb.locId}">{$breadcrumb.name}</a> 
+
+{if !$smarty.foreach.parents.last}
+<br />
+{else}
+{if $editMode}
+- <a href="parent-edit.php?locId={$location.locId}">change parent</a> 
+{/if}
+{/if}
+{/foreach}
+{else}
+{if $editMode}
+<a href="parent-edit.php?locId={$location.locId}">attach parent</a>
+{/if}
+{/if}
+<br />
+</p>
+
+<h2>{$location.name}</h2>
+
+<table>
+<tr>
+<td>
+<b>Children</b>
+<!--<a href="location-tree.php?locId={$location.locId}">all descendants</a>, -->
+{if $editMode}
+-
+<a href="children-edit.php?locId={$location.locId}">attach child</a>,
+<a href="location-create.php?parentLocId={$location.locId}">create child</a>
+{/if}
+</td>
+<td>
+<b>Map</b>
+{if $editMode}
+ - <a href="map-edit.php?locId={$location.locId}&map={$smarty.get.map}" id="editMapLink">edit map</a>
+{/if}
+<!--
+, 
+show:
+{foreach from=$customMaps item=customMap}
+<a href="/loc/{$location.locId}?map={$customMap.mapId}">{$customMap.mapId}</a>,
+{/foreach}
+<a href="/loc/{$location.locId}?map=gps">gps</a>, 
+<a href="/loc/{$location.locId}?map=none">none</a>, {* this should probably set a cookie *}
+full screen:
+<a href="map.php?locId={$location.locId}">custom</a>,
+<a href="gps.php?locId={$location.locId}">gps</a>, 
+-->
+<!-- <input type="checkbox"> show map -->
+
+</td>
+<td align="right">
+{if $map.info}
+<a href="location-view.php?locId={$location.locId}&map=gps">google map</a>
+{elseif $hasCustomMap}
+<a href="location-view.php?locId={$location.locId}&map=custom">custom map</a>
+{/if}
+</td>
+</tr>
+<tr style="height: 512px;">
+<td valign="top" style="height: 512px;">
+<div style="height: 100%; overflow: auto;">
+{if $children}
+{foreach from=$children item=child}
+<a 
+onmouseover="mymouseover({$child.locId});" 
+onmouseout="mymouseout({$child.locId});"
+href="location-view.php?locId={$child.locId}">
+{$child.name|escape}
+</a><br />
+{/foreach}
+{else}
+(no children)
+{/if}
+</div>
+</td>
+<td valign="top" colspan="2" style="height: 512px;">
+{if !$map}
+Map hidden. (<a href="location-view.php?locId={$location.locId}">show</a>)
+{elseif $map.type == 'parent'}
+<span style="color: red;">*Map not found, showing <b>{$map.bounds.name}</b>.</span>
+{elseif !$map.info && !$map.bounds}
+No map available.
+{/if}
+<div id="map" style="height: 512px; width: 512px;" />
+</td>
+</tr>
+</table>
+
+<p>
+<b>Names</b>
+{if $editMode}
+ - <a href="location-addaka.php?locId={$location.locId}">edit names</a>
+{/if}
+<ul>
+{foreach from=$aka item=akaName}
+<li>
+{if $akaName == $location.name}
+<b>{$akaName}</b>
+{else}
+{$akaName}
+{/if}
+</li>
+{/foreach}
+</ul>
+</p>
+
+{include file="includes/location-external-display.tpl.html"}
+
+{if $editMode}
+<p>
+<b>Other Actions</b>
+<ul>
+<li><a href="location-edit.php?locId={$location.locId}">rename this location</a>
+<li><a href="location-duplicate.php?locId={$location.locId}">mark as duplicate</a>
+</ul>
+</p>
+{/if}
+
+{include file='includes/location-view-map-js.tpl.html' mapInfo=$map.info bounds=$map.bounds locations=$map.locations}
+
+{else}
+<p>Sorry, that locId doesn't exist</p>
+{/if}
+	</body>
+</html>
